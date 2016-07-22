@@ -7,6 +7,7 @@ WinStat = ''
 
 
 
+
 def again():    #for login window-----------------------------------------------------------------------------LOGIN WINDOW
     global un, pwd, WinStat, root, application
     if WinStat=='application':
@@ -28,13 +29,16 @@ def again():    #for login window-----------------------------------------------
     root.mainloop()
     
 def check():    #for enter button in login window
-    global un, pwd, login, l, root
+    global un, pwd, root
+    login=sqlite.connect("grocery.sqlite")
+    l=login.cursor()
     u=un.get()
     p=pwd.get()
     l.execute("select * from logs")
     for i in l:     
         if i[0]==u and i[1]==p and u=='admin':
             root.destroy()
+            login.close()
             open_win()
             print "admin here"
         elif i[0]==u and i[1]==p:
@@ -47,6 +51,7 @@ def check():    #for enter button in login window
             top.destroy()
             top.mainloop()
     login.commit()
+    
 
 def open_win(): #OPENS MAIN MENU----------------------------------------------------------------------------MAIN MENU
     global application, WinStat
@@ -77,9 +82,17 @@ def open_win(): #OPENS MAIN MENU------------------------------------------------
 
     
 def stock():
+    
     application.destroy()
+    
+    login.close()
+    
     import stockdetails
     a = stockdetails.stock()
-    print a
+    
+    open_win()
+    
+    
+    
     
 again()
