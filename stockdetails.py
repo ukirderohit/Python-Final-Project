@@ -99,22 +99,33 @@ def chk(): #for new stock submission
     
 
 def deletestock():
-    global cur, c, flag, lb1, d
+    global cur, c, flag, lb1, d, valuex
     # apt.destroy()
-    flag='d'
+    valuex = ''
+    flag='delsto'
     d=Tk()
     d.title("Delete grocery item from Stock")
-    Label(d,text='Enter Item_Name to delete:').grid(row=0,column=0)
-    Label(d,text='',width=30,bg='white').grid(row=0,column=1)
+    Label(d,text='Enter the Item No to Delete').grid(row=1,column=0)
+    valuex=Entry(d)
+    valuex.grid(row=1, column=1)
+    # Label(d,text='',width=30,bg='white').grid(row=0,column=1)
     Label(d,text='Item').grid(row=2,column=0)
     Label(d,text='Qty Remain').grid(row=2,column=1)
     Label(d,text='Cost').grid(row=2,column=2)
     Label(d,text='Expiry Date').grid(row=2,column=3)
     
     displayren()
-    b=Button(d,width=20,text='Delete',command=delt).grid(row=0,column=3)
-    b=Button(d,width=20,text='Main Menu',command=main_menu).grid(row=5,column=3) 
+    b=Button(d,width=20,text='Delete',command=deletestockbutton).grid(row=1,column=3)
+    b=Button(d,width=20,text='Main Menu',command=mainmenu).grid(row=5,column=3) 
     d.mainloop()
+
+def deletestockbutton():
+    global p,c,cur,d,valuex
+    string = valuex.get()
+    print string
+    cur.execute("delete from grocerylist where Item_No=?",string)
+    c.commit()
+    displayren()
     
 def displayren():
     global lb1,d,cur,c
