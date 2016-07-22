@@ -71,9 +71,7 @@ def stock():
     
     sto.mainloop()
     
-def mainmenu():
-    global sto
-    sto.destroy()
+
     
     
     
@@ -100,6 +98,50 @@ def chk(): #for new stock submission
     # mainmenu()
     
 
+def deletestock():
+    global cur, c, flag, lb1, d
+    # apt.destroy()
+    flag='d'
+    d=Tk()
+    d.title("Delete grocery item from Stock")
+    Label(d,text='Enter Item_Name to delete:').grid(row=0,column=0)
+    Label(d,text='',width=30,bg='white').grid(row=0,column=1)
+    Label(d,text='Item').grid(row=2,column=0)
+    Label(d,text='Qty Remain').grid(row=2,column=1)
+    Label(d,text='Cost').grid(row=2,column=2)
+    Label(d,text='Expiry Date').grid(row=2,column=3)
+    
+    displayren()
+    b=Button(d,width=20,text='Delete',command=delt).grid(row=0,column=3)
+    b=Button(d,width=20,text='Main Menu',command=main_menu).grid(row=5,column=3) 
+    d.mainloop()
+    
+def displayren():
+    global lb1,d,cur,c
+    def onvsb(*args):
+        lb1.yview(*args)
+        lb2.yview(*args)
+    
+    index=0
+    vsb=Scrollbar(orient='vertical',command=onvsb)
+    lb1=Listbox(d,width=25, yscrollcommand=vsb.set)
+    lb2=Listbox(d,width=7,yscrollcommand=vsb.set)
+    lb3=Listbox(d,width=7,yscrollcommand=vsb.set)
+    lb4=Listbox(d,width=13,yscrollcommand=vsb.set)
+    vsb.grid(row=3,column=2,sticky=N+S)
+    lb1.grid(row=3,column=0)
+    lb2.grid(row=3,column=1)
+    lb3.grid(row=3,column=2)
+    lb4.grid(row=3,column=3)
+    
+    cur.execute("select * from grocerylist")
+    for i in cur:
+        index+=1
+        lb1.insert(index,str(i[0])+')  '+i[1])
+        lb2.insert(index,i[3])
+        lb3.insert(index,i[4])
+        lb4.insert(index,i[5])
+    c.commit()
     
     
        
@@ -149,5 +191,9 @@ def ref(): # creates a multi-listbox manually to show the whole database
         
     c.commit()   
     
-    
+def mainmenu():
+    if flag=='sto':
+        sto.destroy()
+    elif flag=='delsto':
+        d.destroy()  
 # stock()

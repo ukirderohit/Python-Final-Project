@@ -6,7 +6,29 @@ l=login.cursor()
 WinStat = ''
 
 
-
+def stock():
+    
+    application.destroy()
+    
+    login.close()
+    
+    import stockdetails
+    a = stockdetails.stock()
+    
+    open_win()
+    
+    
+def delstock():
+    
+    application.destroy()
+    # login=sqlite.connect("grocery.sqlite")
+    # l=login.cursor()
+    login.close()
+    
+    import stockdetails
+    a = stockdetails.deletestock()
+    
+    open_win()
 
 def again():    #for login window-----------------------------------------------------------------------------LOGIN WINDOW
     global un, pwd, WinStat, root, application
@@ -30,27 +52,38 @@ def again():    #for login window-----------------------------------------------
     
 def check():    #for enter button in login window
     global un, pwd, root
-    login=sqlite.connect("grocery.sqlite")
-    l=login.cursor()
+    # login=sqlite.connect("grocery.sqlite")
+    # l=login.cursor()
     u=un.get()
     p=pwd.get()
-    l.execute("select * from logs")
-    for i in l:     
-        if i[0]==u and i[1]==p and u=='admin':
-            root.destroy()
-            login.close()
-            open_win()
-            print "admin here"
-        elif i[0]==u and i[1]==p:
-            root.destroy()
-            # open_cus()
-            print "Cus here"
-        elif i[0]!=u or i[1]!=p:
-            top=Tk()
-            Label(top,width=30, text='Wrong Username or Password').grid(row=0, column=0)
-            top.destroy()
-            top.mainloop()
-    login.commit()
+    if 'admin'!=u and 'admin'!=p:
+        top=Tk()
+        Label(top,width=30, text='Wrong Username or Password').grid(row=0, column=0)
+        top.destroy()
+        top.mainloop()
+    else:
+        root.destroy()
+        # login.close()
+        open_win()
+    
+    # l.execute("select * from logs")
+    
+    # for i in l:
+        # if i[0]!=u and i[1]!=p:
+            # top=Tk()
+            # Label(top,width=30, text='Wrong Username or Password').grid(row=0, column=0)
+            # top.destroy()
+            # top.mainloop()
+        # elif i[0]==u and i[1]==p and u=='admin':
+            # root.destroy()
+            # login.close()
+            # open_win()
+        # else:
+            # print "Wrong Username and Password"
+            
+            # # print "admin here":
+    # login.commit()
+        
     
 
 def open_win(): #OPENS MAIN MENU----------------------------------------------------------------------------MAIN MENU
@@ -64,7 +97,7 @@ def open_win(): #OPENS MAIN MENU------------------------------------------------
 
     Label(application, text="Stock Maintenance").grid(row=2,column=0)
     Button(application,text='Add product to Stock', width=25, command = stock).grid(row=5,column=0)
-    Button(application,text='Delete product from Stock', width=25).grid(row=6,column=0)
+    Button(application,text='Delete product from Stock', width=25, command = delstock).grid(row=6,column=0)
     
 
     Label(application, text="Access Database").grid(row=2,column=1)
@@ -81,16 +114,7 @@ def open_win(): #OPENS MAIN MENU------------------------------------------------
     application.mainloop()
 
     
-def stock():
-    
-    application.destroy()
-    
-    login.close()
-    
-    import stockdetails
-    a = stockdetails.stock()
-    
-    open_win()
+
     
     
     
