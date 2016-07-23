@@ -16,7 +16,17 @@ def stock():
     a = stockdetails.stock()
     
     open_win()
+
+def billingitems():
     
+    application.destroy()
+    
+    login.close()
+    
+    import billingdetails
+    a = billingdetails.billingitems()
+    
+    open_win()
     
 def delstock():
     
@@ -107,7 +117,7 @@ def open_win(): #OPENS MAIN MENU------------------------------------------------
 
     Label(application, text="Handle Cash Flows").grid(row=2,column=2)
     Button(application,text="Check Today's Revenue", width=20).grid(row=5,column=2)
-    Button(application,text='Billing', width=20).grid(row=4,column=2)
+    Button(application,text='Billing', width=20, command = billingitems).grid(row=4,column=2)
 
     Label(application, text='-'*80).grid(row=12,column=0,columnspan=3)    
     Button(application,text='Logout',command=again).grid(row=13, column=2)
