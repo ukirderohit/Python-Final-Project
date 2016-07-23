@@ -1,5 +1,6 @@
 from Tkinter import *
 from sqlite3 import dbapi2 as sqlite
+import win32api
 
 
 columns=('Item_No', 'Item_Name', 'Item_Type', 'Quantity_Remain', 'Item_Cost', 'Expiry_Date','Manufactured_By')
@@ -38,7 +39,7 @@ def billingitems():
     Label(billingsto,text='Cost',relief='ridge',width=4).grid(row=7,column=2)
     Label(billingsto,text='Expiry Date',width=10,relief='ridge').grid(row=7,column=3)
    
-    Button(billingsto,text='Add to bill',width=15).grid(row=8, column=6)
+    Button(billingsto,text='Add to bill',width=15,command=addtothebill).grid(row=8, column=6)
     Label(billingsto,text='QUANTITY',width=20,relief='ridge').grid(row=7, column=5)
     qtys=Entry(billingsto)
     qtys.grid(row=8,column=5)
@@ -46,18 +47,11 @@ def billingitems():
     Button(billingsto,width=15,text='Main Menu', command= mainmenu).grid(row=1,column=6)
     Button(billingsto,width=15,text='Refresh Stock',command=refresh).grid(row=3,column=6)
     Button(billingsto,width=15,text='Reset Bill',command=resetbill).grid(row=4,column=6)
-    Button(billingsto,width=15,text='Print Bill').grid(row=5,column=6)
+    Button(billingsto,width=15,text='Print Bill',command=printbill).grid(row=5,column=6)
     Button(billingsto,width=15,text='Save Bill').grid(row=7,column=6)
     
     billingsto.mainloop()
 
-def resetbill():
-    global sl, names, qty
-    sl=[]
-    names=[]
-    qty=[]
-    
-    
 def refresh():
     global cur, c, billingsto, lb1, lb2, vsb
     def onvsb(*args):
@@ -98,7 +92,7 @@ def refresh():
     lb1.bind('<<ListboxSelect>>', select_mn)    
 
 def select_mn(e): #store the selected medicine from listbox
-    global billingsto, lb1, n ,p, sl1
+    global billingsto, lb1, n ,p, sl1, nm
     p=lb1.curselection()
     x=0
     sl1=''
@@ -110,6 +104,29 @@ def select_mn(e): #store the selected medicine from listbox
         x+=1
     c.commit()
     print sl1
+    nm=n[x]
+    print nm
+    
+def addtothebill(): # append to the bill
+    global st, names, nm , qty, sl,cur, c, sl1
+    sl.append(sl1)
+    names.append(nm)
+    qty.append(qtys.get())
+    print qty
+    print sl[len(sl)-1],names[len(names)-1],qty[len(qty)-1]
+    
+def printbill():
+    win32api.hellExecute (0,"print",'bill.txt','/d:"%s"' % win32print.GetDefaultPrinter (),".",0)
+    
+    
+def resetbill():
+    global sl, names, qty
+    sl=[]
+    names=[]
+    qty=[]
+    
+    
+
     
     
 def mainmenu():
