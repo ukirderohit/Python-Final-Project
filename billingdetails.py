@@ -44,13 +44,20 @@ def billingitems():
     qtys.grid(row=8,column=5)
     refresh()
     Button(billingsto,width=15,text='Main Menu', command= mainmenu).grid(row=1,column=6)
-    Button(billingsto,width=15,text='Refresh Stock').grid(row=3,column=6)
-    Button(billingsto,width=15,text='Reset Bill').grid(row=4,column=6)
+    Button(billingsto,width=15,text='Refresh Stock',command=refresh).grid(row=3,column=6)
+    Button(billingsto,width=15,text='Reset Bill',command=resetbill).grid(row=4,column=6)
     Button(billingsto,width=15,text='Print Bill').grid(row=5,column=6)
     Button(billingsto,width=15,text='Save Bill').grid(row=7,column=6)
     
     billingsto.mainloop()
 
+def resetbill():
+    global sl, names, qty
+    sl=[]
+    names=[]
+    qty=[]
+    
+    
 def refresh():
     global cur, c, billingsto, lb1, lb2, vsb
     def onvsb(*args):
