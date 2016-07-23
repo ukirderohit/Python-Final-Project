@@ -1,1 +1,0 @@
-insert into grocerylist values(1,'Milk','Dairy',20,10,'12/12/2016','Prairie')
