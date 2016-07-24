@@ -24,7 +24,7 @@ def billingitems():
     for i in cur:
         n.append(i[1])
     c.commit()
-    # apt.destroy()
+    
     flag='billingsto'
     billingsto=Tk()
     billingsto.title('BILLING')
@@ -203,4 +203,4 @@ def mainmenu():
     elif flag=='billingsto':
         billingsto.destroy()  
         
-billingitems()
+# billingitems()

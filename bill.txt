@@ -2,21 +2,21 @@
 
 
 ===============================================
-                                  No :574
+                                  No :655
 
           INDIAN GROCERY STORE
   1602 ,Chatham Hills, Springfield-62704, Illinois
 
 -----------------------------------------------
-Name: Rohit
-Address: Shardanagar
+Name: Apurva
+Address: Springfield, Illinois
 -----------------------------------------------
 Product                      Qty.       Price
 -----------------------------------------------
-Milk                         2           20.0
+Milk                         4           40.0
 
 -----------------------------------------------
-Total                                 Rs 20.0
+Total                                 Rs 40.0
 -----------------------------------------------
 
 Dealer 's signature:___________________________
