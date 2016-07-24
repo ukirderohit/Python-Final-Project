@@ -129,11 +129,11 @@ def resetbill():
     qty=[]
     
 def savebill():
-    global t, c, cur, st, names, qty, sl , named, addd, name1, add,det, vc_id
+    global t, c, cur, st, names, qty, sl , named, addd, name1, add,details, vc_id
     price=[0.0]*10
     q=0
-    det=['','','','','','','','']
-    det[2]=str(sl)
+    details=['','','','','','','','']
+    details[2]=str(sl)
     for i in range(len(sl)):
         print sl[i],' ',qty[i],' ',names[i]
     for k in range(len(sl)):
@@ -143,56 +143,56 @@ def savebill():
             print qty[k],price[k]
             cur.execute("update grocerylist set Quantity_Remain=? where Item_No=?",(int(i[3])-int(qty[k]),sl[k]))
         c.commit()
-    det[5]=str(random.randint(100,999))
+    details[5]=str(random.randint(100,999))
     total=0.00
     for i in range(10):
         if price[i] != '':
             total+=price[i] #totalling
-    m='\n\n\n'
-    m+="===============================================\n"
-    m+="                                  No :%s\n\n" % det[5]
-    m+="          INDIAN GROCERY STORE\n"
-    m+="  1602 ,Chatham Hills, Springfield-62704, Illinois\n\n"
-    m+="-----------------------------------------------\n"
+    lineadd='\n\n\n'
+    lineadd+="===============================================\n"
+    lineadd+="                                  No :%s\n\n" % details[5]
+    lineadd+="          INDIAN GROCERY STORE\n"
+    lineadd+="  1602 ,Chatham Hills, Springfield-62704, Illinois\n\n"
+    lineadd+="-----------------------------------------------\n"
     if t==1:
-        m+="Name: %s\n" % named
-        m+="Address: %s\n" % addd
-        det[0]=named.lower()
-        det[1]=addd.lower()
+        lineadd+="Name: %s\n" % named
+        lineadd+="Address: %s\n" % addd
+        details[0]=named.lower()
+        details[1]=addd.lower()
         cur.execute('select * from customer')
         for i in cur:
             if i[0]==named:
-                det[7]=i[3]
+                details[7]=i[3]
     else:
-        m+="Name: %s\n" % name1.get()
-        m+="Address: %s\n" % add.get()
-        det[0]=name1.get()
-        det[1]=add.get()
-        cur.execute('insert into customer values(?,?)',(det[0].lower(),det[1].lower()))
-    m+="-----------------------------------------------\n"
-    m+="Product                      Qty.       Price\n"
-    m+="-----------------------------------------------\n"
+        lineadd+="Name: %s\n" % name1.get()
+        lineadd+="Address: %s\n" % add.get()
+        details[0]=name1.get()
+        details[1]=add.get()
+        cur.execute('insert into customer values(?,?)',(details[0].lower(),details[1].lower()))
+    lineadd+="-----------------------------------------------\n"
+    lineadd+="Product                      Qty.       Price\n"
+    lineadd+="-----------------------------------------------\n"
     for i in range(len(sl)):
         if names[i] != 'nil':
             s1=' '
             s1=(names[i]) + (s1 * (27-len(names[i]))) + s1*(3-len(qty[i])) +qty[i]+ s1*(15-len(str(price[i])))+str(price[i]) + '\n'
-            m+=s1
-    m+="\n-----------------------------------------------\n"
-    m+='Total'+(' '*25)+(' '*(12-len(str(total)))) +'Rs '+ str(total)+'\n'
-    det[3]=str(total)
+            lineadd+=s1
+    lineadd+="\n-----------------------------------------------\n"
+    lineadd+='Total'+(' '*25)+(' '*(12-len(str(total)))) +'Rs '+ str(total)+'\n'
+    details[3]=str(total)
         
-    m+="-----------------------------------------------\n\n"
-    m+="Dealer 's signature:___________________________\n"
-    m+="===============================================\n"
-    print m
+    lineadd+="-----------------------------------------------\n\n"
+    lineadd+="Dealer 's signature:___________________________\n"
+    lineadd+="===============================================\n"
+    print lineadd
     p=time.localtime()
-    det[4]=str(p[2])+'/'+str(p[1])+'/'+str(p[0])
-    det[6]=m
+    details[4]=str(p[2])+'/'+str(p[1])+'/'+str(p[0])
+    details[6]=lineadd
     bill=open('bill.txt','w')
-    bill.write(m)
+    bill.write(lineadd)
     bill.close()
     cb=('cus_name','cus_add','items','Total_cost','bill_dt','bill_no','bill')
-    cur.execute('insert into bill values(?,?,?,?,?,?,?)',(det[0],det[1],det[2],det[3],det[4],det[5],det[6]))
+    cur.execute('insert into bill values(?,?,?,?,?,?,?)',(details[0],details[1],details[2],details[3],details[4],details[5],details[6]))
     c.commit()
 
     
