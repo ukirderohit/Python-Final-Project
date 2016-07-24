@@ -94,7 +94,7 @@ def refresh():
     c.commit()
     lb1.bind('<<ListboxSelect>>', select_mn)    
 
-def select_mn(e): #store the selected medicine from listbox
+def select_mn(e): #store the selected item from listbox
     global billingsto, lb1, n ,p, sl1, nm
     p=lb1.curselection()
     x=0
@@ -157,8 +157,8 @@ def savebill():
     if t==1:
         m+="Name: %s\n" % named
         m+="Address: %s\n" % addd
-        det[0]=named
-        det[1]=addd
+        det[0]=named.lower()
+        det[1]=addd.lower()
         cur.execute('select * from customer')
         for i in cur:
             if i[0]==named:
@@ -168,9 +168,10 @@ def savebill():
         m+="Address: %s\n" % add.get()
         det[0]=name1.get()
         det[1]=add.get()
+        cur.execute('insert into customer values(?,?)',(det[0].lower(),det[1].lower()))
     m+="-----------------------------------------------\n"
     m+="Product                      Qty.       Price\n"
-    m+="-----------------------------------------------\n"#47, qty=27, price=8 after 2
+    m+="-----------------------------------------------\n"
     for i in range(len(sl)):
         if names[i] != 'nil':
             s1=' '
