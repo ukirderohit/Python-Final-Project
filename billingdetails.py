@@ -1,6 +1,9 @@
 from Tkinter import *
 from sqlite3 import dbapi2 as sqlite
 import win32api
+import win32print
+import random
+import time
 
 
 columns=('Item_No', 'Item_Name', 'Item_Type', 'Quantity_Remain', 'Item_Cost', 'Expiry_Date','Manufactured_By')
@@ -48,7 +51,7 @@ def billingitems():
     Button(billingsto,width=15,text='Refresh Stock',command=refresh).grid(row=3,column=6)
     Button(billingsto,width=15,text='Reset Bill',command=resetbill).grid(row=4,column=6)
     Button(billingsto,width=15,text='Print Bill',command=printbill).grid(row=5,column=6)
-    Button(billingsto,width=15,text='Save Bill').grid(row=7,column=6)
+    Button(billingsto,width=15,text='Save Bill',command=savebill).grid(row=7,column=6)
     
     billingsto.mainloop()
 
@@ -116,8 +119,8 @@ def addtothebill(): # append to the bill
     print sl[len(sl)-1],names[len(names)-1],qty[len(qty)-1]
     
 def printbill():
-    win32api.hellExecute (0,"print",'bill.txt','/d:"%s"' % win32print.GetDefaultPrinter (),".",0)
-    
+    win32api.ShellExecute (0,"print",'bill.txt','/d:"%s"' % win32print.GetDefaultPrinter (),".",0)
+    ShellExecute
     
 def resetbill():
     global sl, names, qty
@@ -125,7 +128,71 @@ def resetbill():
     names=[]
     qty=[]
     
-    
+def savebill():
+    global t, c, cur, st, names, qty, sl , named, addd, name1, add,det, vc_id
+    price=[0.0]*10
+    q=0
+    det=['','','','','','','','']
+    det[2]=str(sl)
+    for i in range(len(sl)):
+        print sl[i],' ',qty[i],' ',names[i]
+    for k in range(len(sl)):
+        cur.execute("select * from grocerylist where Item_No=?",(sl[k],))
+        for i in cur:
+            price[k]=int(qty[k])*float(i[4])
+            print qty[k],price[k]
+            cur.execute("update grocerylist set Quantity_Remain=? where Item_No=?",(int(i[3])-int(qty[k]),sl[k]))
+        c.commit()
+    det[5]=str(random.randint(100,999))
+    total=0.00
+    for i in range(10):
+        if price[i] != '':
+            total+=price[i] #totalling
+    m='\n\n\n'
+    m+="===============================================\n"
+    m+="                                  No :%s\n\n" % det[5]
+    m+="          INDIAN GROCERY STORE\n"
+    m+="  1602 ,Chatham Hills, Springfield-62704, Illinois\n\n"
+    m+="-----------------------------------------------\n"
+    if t==1:
+        m+="Name: %s\n" % named
+        m+="Address: %s\n" % addd
+        det[0]=named
+        det[1]=addd
+        cur.execute('select * from customer')
+        for i in cur:
+            if i[0]==named:
+                det[7]=i[3]
+    else:
+        m+="Name: %s\n" % name1.get()
+        m+="Address: %s\n" % add.get()
+        det[0]=name1.get()
+        det[1]=add.get()
+    m+="-----------------------------------------------\n"
+    m+="Product                      Qty.       Price\n"
+    m+="-----------------------------------------------\n"#47, qty=27, price=8 after 2
+    for i in range(len(sl)):
+        if names[i] != 'nil':
+            s1=' '
+            s1=(names[i]) + (s1 * (27-len(names[i]))) + s1*(3-len(qty[i])) +qty[i]+ s1*(15-len(str(price[i])))+str(price[i]) + '\n'
+            m+=s1
+    m+="\n-----------------------------------------------\n"
+    m+='Total'+(' '*25)+(' '*(12-len(str(total)))) +'Rs '+ str(total)+'\n'
+    det[3]=str(total)
+        
+    m+="-----------------------------------------------\n\n"
+    m+="Dealer 's signature:___________________________\n"
+    m+="===============================================\n"
+    print m
+    p=time.localtime()
+    det[4]=str(p[2])+'/'+str(p[1])+'/'+str(p[0])
+    det[6]=m
+    bill=open('bill.txt','w')
+    bill.write(m)
+    bill.close()
+    cb=('cus_name','cus_add','items','Total_cost','bill_dt','bill_no','bill')
+    cur.execute('insert into bill values(?,?,?,?,?,?,?)',(det[0],det[1],det[2],det[3],det[4],det[5],det[6]))
+    c.commit()
 
     
     
