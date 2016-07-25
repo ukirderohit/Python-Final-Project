@@ -17,6 +17,17 @@ def stock():
     
     open_win()
 
+def dailyincome():
+    
+    application.destroy()
+    
+    login.close()
+    
+    import billingdetails
+    a = billingdetails.dailyincome()
+    
+    open_win()    
+    
 def billingitems():
     
     application.destroy()
@@ -39,7 +50,19 @@ def delstock():
     a = stockdetails.deletestock()
     
     open_win()
-
+    
+def updatestock():
+    
+    application.destroy()
+    # login=sqlite.connect("grocery.sqlite")
+    # l=login.cursor()
+    login.close()
+    
+    import stockdetails
+    a = stockdetails.updatestock()
+    
+    open_win()
+    
 def again():    #for login window-----------------------------------------------------------------------------LOGIN WINDOW
     global un, pwd, WinStat, root, application
     if WinStat=='application':
@@ -76,23 +99,7 @@ def check():    #for enter button in login window
         # login.close()
         open_win()
     
-    # l.execute("select * from logs")
     
-    # for i in l:
-        # if i[0]!=u and i[1]!=p:
-            # top=Tk()
-            # Label(top,width=30, text='Wrong Username or Password').grid(row=0, column=0)
-            # top.destroy()
-            # top.mainloop()
-        # elif i[0]==u and i[1]==p and u=='admin':
-            # root.destroy()
-            # login.close()
-            # open_win()
-        # else:
-            # print "Wrong Username and Password"
-            
-            # # print "admin here":
-    # login.commit()
         
     
 
@@ -106,8 +113,9 @@ def open_win(): #OPENS MAIN MENU------------------------------------------------
     Label(application, text='-'*80).grid(row=3,column=0,columnspan=3) 
 
     Label(application, text="Stock Maintenance").grid(row=2,column=0)
-    Button(application,text='Add product to Stock', width=25, command = stock).grid(row=5,column=0)
-    Button(application,text='Delete product from Stock', width=25, command = delstock).grid(row=6,column=0)
+    Button(application,text='Add items to Stock', width=25, command = stock).grid(row=4,column=0)
+    Button(application,text='Delete items from Stock', width=25, command = delstock).grid(row=5,column=0)
+    Button(application,text='Update items from Stock', width=25, command = updatestock).grid(row=6,column=0)
     
 
     Label(application, text="Access Database").grid(row=2,column=1)
@@ -116,7 +124,7 @@ def open_win(): #OPENS MAIN MENU------------------------------------------------
     Button(application,text='Expiry Check', width=15).grid(row=6,column=1)
 
     Label(application, text="Handle Cash Flows").grid(row=2,column=2)
-    Button(application,text="Check Today's Revenue", width=20).grid(row=5,column=2)
+    Button(application,text="Check Today's Revenue",command= dailyincome, width=20).grid(row=5,column=2)
     Button(application,text='Billing', width=20, command = billingitems).grid(row=4,column=2)
 
     Label(application, text='-'*80).grid(row=12,column=0,columnspan=3)    

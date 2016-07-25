@@ -60,10 +60,14 @@ def refresh():
     def onvsb(*args):
         lb1.yview(*args)
         lb2.yview(*args)
+        lb3.yview(*args)
+        lb4.yview(*args)
 
     def onmousewheel():
         lb1.ywiew=('scroll',event.delta,'units')
         lb2.ywiew=('scroll',event.delta,'units')
+        lb3.ywiew=('scroll',event.delta,'units')
+        lb4.ywiew=('scroll',event.delta,'units')
         return 'break'
     index=0
     vsb=Scrollbar(orient='vertical',command=onvsb)
@@ -82,6 +86,8 @@ def refresh():
     
     lb1.bind('<MouseWheel>',onmousewheel)
     lb2.bind('<MouseWheel>',onmousewheel)
+    lb3.bind('<MouseWheel>',onmousewheel)
+    lb4.bind('<MouseWheel>',onmousewheel)
     cur.execute("select * from grocerylist")
     for i in cur:
         index+=1
@@ -178,7 +184,7 @@ def savebill():
             s1=(names[i]) + (s1 * (27-len(names[i]))) + s1*(3-len(qty[i])) +qty[i]+ s1*(15-len(str(price[i])))+str(price[i]) + '\n'
             lineadd+=s1
     lineadd+="\n-----------------------------------------------\n"
-    lineadd+='Total'+(' '*25)+(' '*(12-len(str(total)))) +'Rs '+ str(total)+'\n'
+    lineadd+='Total'+(' '*25)+(' '*(12-len(str(total)))) +'$ '+ str(total)+'\n'
     details[3]=str(total)
         
     lineadd+="-----------------------------------------------\n\n"
@@ -191,16 +197,46 @@ def savebill():
     bill=open('bill.txt','w')
     bill.write(lineadd)
     bill.close()
-    cb=('cus_name','cus_add','items','Total_cost','bill_dt','bill_no','bill')
+    billtable=('cname','cadd','items','total','date','billno','bill')
     cur.execute('insert into bill values(?,?,?,?,?,?,?)',(details[0],details[1],details[2],details[3],details[4],details[5],details[6]))
     c.commit()
 
+def dailyincome():
+    global c, cur, flag,rev,dailyinco
     
+    billtable=('cname','cadd','items','total','date','billno','bill')
+    flag='dailyinco'
+    dailyinco=Tk()
+    total=0.0
+    today=str(time.localtime()[2])+'/'+str(time.localtime()[1])+'/'+str(time.localtime()[0])
+    Label(dailyinco,text='Today: '+today).grid(row=0,column=0)
+    cur.execute('select * from bill')
+    for i in cur:
+        if i[4]==today:
+            total+=float(i[3])
+    
+    Label(dailyinco,width=22,text="Today's Total Income: $ "+str(total), bg='black',fg='white').grid(row=1,column=0)
+    index=0
+    vsb=Scrollbar(orient='vertical')
+    lb1=Listbox(dailyinco,width=25, yscrollcommand=vsb.set)
+    vsb.grid(row=2,column=1,sticky=N+S)
+    lb1.grid(row=2,column=0)
+    vsb.config( command = lb1.yview )
+    cur.execute("select * from bill")
+    for i in cur:
+        if i[4]==today:
+            index+=1
+            lb1.insert(index,'Bill No.: '+i[5]+'    : $ '+i[3])
+    c.commit()
+    Button(dailyinco,text='Main Menu',command=mainmenu).grid(row=15,column=0)
+    dailyinco.mainloop()
     
 def mainmenu():
     if flag=='sto':
         sto.destroy()
     elif flag=='billingsto':
         billingsto.destroy()  
+    elif flag=='dailyinco':
+        dailyinco.destroy()
         
 # billingitems()
