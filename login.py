@@ -81,6 +81,7 @@ def again():    #for login window-----------------------------------------------
         application.destroy()
     root=Tk()
     root.title('INDIAN GROCERY STORE')
+    root.wm_iconbitmap('favicon.ico')
     Label(root,text='INDIAN GROCERY STORE').grid(row=0,column=0,columnspan=5)
     Label(root,text="1602 ,Chatham Hills, Springfield-62704, Illinois").grid(row=1,column=0,columnspan=5)
     Label(root,text='--------------------------------------------------------------').grid(row=2,column=0,columnspan=5)
