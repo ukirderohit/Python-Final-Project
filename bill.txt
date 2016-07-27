@@ -2,23 +2,22 @@
 
 
 ===============================================
-                                  No :248
+                                  No :455
 
           INDIAN GROCERY STORE
   1602 ,Chatham Hills, Springfield-62704, Illinois
 
 -----------------------------------------------
-Name: rohit
-Address: s
-Name: rohit
-Address: s
+Name: sana
+Address: india
 -----------------------------------------------
 Product                      Qty.       Price
 -----------------------------------------------
-Milk                         1           10.0
+Milk                         2           20.0
+Sandwich Wheat               7          69.93
 
 -----------------------------------------------
-Total                                 Rs 10.0
+Total                                $ 89.93
 -----------------------------------------------
 
 Dealer 's signature:___________________________
