@@ -63,6 +63,18 @@ def updatestock():
     
     open_win()
     
+def expirycheck():
+    
+    application.destroy()
+    # login=sqlite.connect("grocery.sqlite")
+    # l=login.cursor()
+    login.close()
+    
+    import expirycheck
+    a = expirycheck.expiry()
+    
+    open_win()
+    
 def again():    #for login window-----------------------------------------------------------------------------LOGIN WINDOW
     global un, pwd, WinStat, root, application
     if WinStat=='application':
@@ -119,9 +131,9 @@ def open_win(): #OPENS MAIN MENU------------------------------------------------
     
 
     Label(application, text="Access Database").grid(row=2,column=1)
-    Button(application,text='Modify',width=15).grid(row=4,column=1)
-    Button(application,text='Search', width=15).grid(row=5,column=1)
-    Button(application,text='Expiry Check', width=15).grid(row=6,column=1)
+    
+    
+    Button(application,text='Expiry Check', width=15, command=expirycheck).grid(row=6,column=1)
 
     Label(application, text="Handle Cash Flows").grid(row=2,column=2)
     Button(application,text="Check Today's Revenue",command= dailyincome, width=20).grid(row=5,column=2)
