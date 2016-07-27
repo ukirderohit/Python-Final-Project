@@ -125,6 +125,29 @@ def open_win(): #OPENS MAIN MENU------------------------------------------------
     WinStat='application'
     application=Tk()
     application.title("INDIAN GROCERY STORE")
+    menu_bar = Menu(application)
+    stock_menu = Menu(menu_bar,tearoff=0)
+    expiry_menu = Menu(menu_bar,tearoff=0)
+    billing_menu = Menu(menu_bar,tearoff=0)
+    '''Stock Maintainance'''
+    stock_menu.add_command(label="Add Items", command=stock)
+    stock_menu.add_command(label="Delete Items", command=delstock)
+    stock_menu.add_command(label="Update Items", command=updatestock)
+    '''Expiry Check'''
+    expiry_menu.add_command(label="Check Expiry", command=expirycheck)
+    '''Billing'''
+    billing_menu.add_command(label="Billing", command=billingitems)
+    billing_menu.add_command(label="Check Today's Income", command=dailyincome)
+    
+    # Add the "File" drop down sub-menu in the main menu bar
+    menu_bar.add_cascade(label="Stock Maintainance", menu=stock_menu)
+    menu_bar.add_cascade(label="Expiry", menu=expiry_menu)
+    menu_bar.add_cascade(label="Billing", menu=billing_menu)
+    application.config(menu=menu_bar)
+    
+    
+    
+    
     Label(application, text="INDIAN GROCERY STORE").grid(row=0,column=0,columnspan=3)
     Label(application, text='*'*80).grid(row=1,column=0,columnspan=3)
     Label(application, text='-'*80).grid(row=3,column=0,columnspan=3) 
