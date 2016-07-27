@@ -324,4 +324,4 @@ def mainmenu():
     elif flag=='updatesto':
         updatesto.destroy()
 # updatestock()
-stock()
+# stock()

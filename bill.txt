@@ -2,22 +2,25 @@
 
 
 ===============================================
-                                  No :455
+                                  No :711
 
           INDIAN GROCERY STORE
   1602 ,Chatham Hills, Springfield-62704, Illinois
 
 -----------------------------------------------
-Name: sana
-Address: india
+Name: tarun
+Address: sprinfield
 -----------------------------------------------
 Product                      Qty.       Price
 -----------------------------------------------
-Milk                         2           20.0
-Sandwich Wheat               7          69.93
+Milk                         1           10.0
+Sandwich Wheat               2          19.98
+Chai                         3          17.97
+Chocalate                    3           3.99
+Cake                         1          12.99
 
 -----------------------------------------------
-Total                                $ 89.93
+Total                                $ 64.93
 -----------------------------------------------
 
 Dealer 's signature:___________________________
