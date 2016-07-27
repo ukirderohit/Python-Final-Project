@@ -34,7 +34,11 @@ def stock():
     autovalue = autoincre()
     value[0]=Entry(sto)
     value[0].grid(row=3, column=1)
-    Label(sto,text='The New Value Should be :- ' + str(autovalue)).grid(row=3,column=2)
+    
+    # Label(sto,text='The New Value Should be :- ' + str(autovalue)).grid(row=3,column=2)
+    value[0].insert(0,str(autovalue))
+    # Entry.configure(state='disabled')
+    
     Label(sto,width=15,text=str(columns[1])+':',justify=LEFT).grid(row=4,column=0,sticky=W)
     value[1]=Entry(sto)
     value[1].grid(row=4, column=1)
@@ -320,3 +324,4 @@ def mainmenu():
     elif flag=='updatesto':
         updatesto.destroy()
 # updatestock()
+stock()
