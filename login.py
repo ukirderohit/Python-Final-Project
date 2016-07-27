@@ -162,12 +162,7 @@ def open_win(): #OPENS MAIN MENU------------------------------------------------
     
     
     
-    
-    Label(application, text="INDIAN GROCERY STORE").grid(row=0,column=0,columnspan=3)
-    Label(application, text='*'*80).grid(row=1,column=0,columnspan=3)
-    Label(application, text='-'*80).grid(row=3,column=0,columnspan=3) 
-
-    
+        
     application.mainloop()
 
     
