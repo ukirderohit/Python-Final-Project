@@ -10,7 +10,7 @@ cur=c.cursor()
 
 
 def autoincre():
-    
+    ''' To auto-generate item No '''
     cur.execute("select max(Item_No) from grocerylist")
     incval = cur.fetchone()
     incval = incval[0] + 1
@@ -19,7 +19,7 @@ def autoincre():
     
     
 def stock():
-    
+    ''' Stock User GUI here '''
     global cur, c, columns, value, flag, sto, application
     
     flag='sto'
@@ -78,6 +78,7 @@ def stock():
     
 
 def updatestock():
+    ''' Which item to Update GUI '''
     global cur, c, flag, lb1, updatesto, valueupx
     # apt.destroy()
     valueupx = ''
@@ -100,6 +101,7 @@ def updatestock():
     updatesto.mainloop()
   
 def updatestockbutton():
+    ''' Update Stock Button GUI '''
     global valueupx,cur,valueupxy,updateitemno,flag,updatestobut 
     index=0
     
@@ -130,7 +132,7 @@ def updatestockbutton():
     Label(updatestobut,text='Expiry_Date').grid(row=8,column=0)
     valueupxy[3]=Entry(updatestobut)
     lb4 = valueupxy[3].grid(row=8, column=1)
-    
+    ''' This will automatically show data of respective itemno in the textbox '''
     cur.execute('select * from grocerylist where Item_No=?',updateitemno)
     for i in cur:
         index+=1
@@ -144,7 +146,8 @@ def updatestockbutton():
     b=Button(updatestobut,width=20,text='Main Menu',command=mainmenu).grid(row=11,column=1) 
     updatestobut.mainloop()
     
-def updatesql():  
+def updatesql():
+    ''' Update in the database '''
     global updatestobut,valueupxy,updateitemno,cur,c
     itemno=updateitemno
     upitemname=valueupxy[0].get()
@@ -166,6 +169,7 @@ def updatesql():
     
   
 def displayupdate():
+    ''' Display data from database for Update '''
     global lb1,updatesto,cur,c
     def onvsb(*args):
         lb1.yview(*args)
@@ -193,7 +197,8 @@ def displayupdate():
     c.commit()    
 
 
-def chk(): #for new stock submission
+def chk():
+    ''' Add new Stock Item '''
     global value, c, cur, columns, sto
     
     x=['']*10
@@ -216,6 +221,7 @@ def chk(): #for new stock submission
     
 
 def deletestock():
+    ''' Delete Stock GUI '''
     global cur, c, flag, lb1, delsto, valuex
     # apt.destroy()
     valuex = ''
@@ -238,6 +244,7 @@ def deletestock():
     delsto.mainloop()
 
 def deletestockbutton():
+    ''' Deleting from the table '''
     global p,c,cur,delsto,valuex
     string = valuex.get()
     print string
@@ -280,7 +287,8 @@ def displayren():
     
          
         
-def ref(): # creates a multi-listbox manually to show the whole database 
+def ref(): 
+    ''' Multilistbox to show all the data in database '''
     global sto,cur,c
     
     def scrollbarv(*args):
@@ -321,6 +329,7 @@ def ref(): # creates a multi-listbox manually to show the whole database
     c.commit()   
     
 def mainmenu():
+    ''' Main Menu Button '''
     if flag=='sto':
         sto.destroy()
     elif flag=='delsto':

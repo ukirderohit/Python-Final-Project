@@ -1,3 +1,8 @@
+#Name - Rohit Shankarrao Ukirde
+#Email - rukir2@uis.edu
+#Python 2.7
+
+
 from Tkinter import *
 from sqlite3 import dbapi2 as sqlite
 from PIL import ImageTk, Image
@@ -77,7 +82,8 @@ def expirycheck():
     
     open_win()
     
-def again():    #for login window-----------------------------------------------------------------------------LOGIN WINDOW
+def again():   
+    ''' Main Login Window'''
     global un, pwd, WinStat, root, application
     if WinStat=='application':
         application.destroy()
@@ -102,7 +108,8 @@ def again():    #for login window-----------------------------------------------
     Button(root,width=6,text='Close',command=root.destroy).grid(row=7, column=2)
     root.mainloop()
     
-def check():    #for enter button in login window
+def check():   
+    ''' Check Button for Login Window '''
     global un, pwd, root
     # login=sqlite.connect("grocery.sqlite")
     # l=login.cursor()
@@ -122,7 +129,8 @@ def check():    #for enter button in login window
         
     
 
-def open_win(): #OPENS MAIN MENU----------------------------------------------------------------------------MAIN MENU
+def open_win(): 
+    ''' Opens Main Window '''
     global application, WinStat
     WinStat='application'
     application=Tk()
@@ -132,7 +140,7 @@ def open_win(): #OPENS MAIN MENU------------------------------------------------
     application.title("INDIAN GROCERY STORE")
     application.geometry("800x600")
     
-    
+    ''' Main Window Picture '''
     img = ImageTk.PhotoImage(Image.open('collage.jpg'))
     panel = Label(application, image = img).grid(row=0, column=0,columnspan=5)
     

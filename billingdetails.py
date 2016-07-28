@@ -1,3 +1,8 @@
+#Name - Rohit Shankarrao Ukirde
+#Email - rukir2@uis.edu
+#Python 2.7
+
+
 from Tkinter import *
 from sqlite3 import dbapi2 as sqlite
 import win32api
@@ -12,6 +17,7 @@ c=sqlite.connect("grocery.sqlite")
 cur=c.cursor()
 
 def billingitems():
+    ''' Billing GUI '''
     global c, cur, flag, t, name, name1, add, billingsto, names, qty, sl, qtys,n, namee, lb1
     t=0
     
@@ -57,6 +63,7 @@ def billingitems():
     billingsto.mainloop()
 
 def refresh():
+    ''' Displays all the data from the database '''
     global cur, c, billingsto, lb1, lb2, vsb
     def onvsb(*args):
         lb1.yview(*args)
@@ -101,7 +108,8 @@ def refresh():
     c.commit()
     lb1.bind('<<ListboxSelect>>', select_mn)    
 
-def select_mn(e): #store the selected item from listbox
+def select_mn(e): 
+    ''' It will store the selected item from the listbox '''
     global billingsto, lb1, n ,p, sl1, nm
     p=lb1.curselection()
     x=0
@@ -117,7 +125,8 @@ def select_mn(e): #store the selected item from listbox
     nm=n[x]
     print nm
     
-def addtothebill(): # append to the bill
+def addtothebill():
+    ''' Add to bill button which allows to append the data in the bill'''
     global st, names, nm , qty, sl,cur, c, sl1
     sl.append(sl1)
     names.append(nm)
@@ -126,16 +135,19 @@ def addtothebill(): # append to the bill
     print sl[len(sl)-1],names[len(names)-1],qty[len(qty)-1]
     
 def printbill():
+    ''' Print the text file in pdf '''
     win32api.ShellExecute (0,"print",'bill.txt','/d:"%s"' % win32print.GetDefaultPrinter (),".",0)
     ShellExecute
     
 def resetbill():
+    ''' CLears all the textboxes in the bill '''
     global sl, names, qty
     sl=[]
     names=[]
     qty=[]
     
 def savebill():
+    ''' Create Text File of Bill Format'''
     global t, c, cur, st, names, qty, sl , named, addd, name1, add,details, vc_id
     price=[0.0]*10
     q=0
@@ -203,6 +215,7 @@ def savebill():
     c.commit()
 
 def dailyincome():
+    ''' This function will allow us to show today's total income '''
     global c, cur, flag,rev,dailyinco
     
     billtable=('cname','cadd','items','total','date','billno','bill')

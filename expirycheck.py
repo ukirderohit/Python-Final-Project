@@ -1,3 +1,7 @@
+#Name - Rohit Shankarrao Ukirde
+#Email - rukir2@uis.edu
+#Python 2.7
+
 from Tkinter import *
 from sqlite3 import dbapi2 as sqlite
 import time
@@ -11,6 +15,7 @@ cur=c.cursor()
 
 
 def expiry():
+    ''' Expiry GUI '''
     global expirychk, expdate,c, cur, flag
     total=0.0
     today=str(time.localtime()[2])+'/'+str(time.localtime()[1])+'/'+str(time.localtime()[0])
@@ -36,6 +41,7 @@ def expiry():
     expirychk.mainloop()
     
 def chkexpiry():    
+    ''' Check Expiry Date button will navigate here '''
     global c, cur, expdate, expirychk
     cur.execute("select * from grocerylist")
     for i in cur:
