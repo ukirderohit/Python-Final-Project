@@ -26,6 +26,7 @@ def stock():
     value = ['']*len(columns)
     sto=Tk()
     sto.title('Add Stock')
+    sto.wm_iconbitmap('favicon.ico')
     Label(sto,text='Enter a New Item to the Grocery Stock').grid(row=0,column=0,columnspan=2)
     Label(sto,text='-'*50).grid(row=1,column=0,columnspan=2)
     
@@ -83,6 +84,7 @@ def updatestock():
     flag='updatesto'
     updatesto=Tk()
     updatesto.title("Update grocery item from Stock")
+    updatesto.wm_iconbitmap('favicon.ico')
     Label(updatesto,text='Enter the Item No to Update').grid(row=1,column=0)
     valueupx=Entry(updatesto)
     valueupx.grid(row=1, column=1)
@@ -109,6 +111,7 @@ def updatestockbutton():
     flag='updatestobut'
     updatestobut=Tk()
     updatestobut.title("Update grocery item from Stock")
+    updatestobut.wm_iconbitmap('favicon.ico')
     Label(updatestobut,text='Enter the Item to update to the Grocery Stock').grid(row=0,column=0,columnspan=2)
     col = ('ItemName','QtyRem','Cost','Expiry')
     valueupxy=['']*len(col)
@@ -155,6 +158,7 @@ def updatesql():
     print upexpiry
     cur.execute('update grocerylist set Item_Name=?,Quantity_Remain=?,Item_Cost=?,Expiry_Date=? where Item_No=?',(upitemname,upqtyremai,upcost,upexpiry,itemno))
     top = Tk()
+    top.wm_iconbitmap('favicon.ico')
     Label(top,width=20, text='Modified!').pack()
     c.commit()
     top.mainloop()
@@ -205,6 +209,7 @@ def chk(): #for new stock submission
     c.commit()
     
     top=Tk()
+    top.wm_iconbitmap('favicon.ico')
     Label(top,width=20, text='Success!').pack()
     top.mainloop()
     # mainmenu()
@@ -217,6 +222,7 @@ def deletestock():
     flag='delsto'
     delsto=Tk()
     delsto.title("Delete grocery item from Stock")
+    delsto.wm_iconbitmap('favicon.ico')
     Label(delsto,text='Enter the Item No to Delete').grid(row=1,column=0)
     valuex=Entry(delsto)
     valuex.grid(row=1, column=1)

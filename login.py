@@ -126,9 +126,9 @@ def open_win(): #OPENS MAIN MENU------------------------------------------------
     global application, WinStat
     WinStat='application'
     application=Tk()
+    application.wm_iconbitmap('favicon.ico')
     
-    
-    
+  
     application.title("INDIAN GROCERY STORE")
     application.geometry("800x600")
     

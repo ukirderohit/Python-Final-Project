@@ -28,6 +28,7 @@ def billingitems():
     flag='billingsto'
     billingsto=Tk()
     billingsto.title('BILLING')
+    billingsto.wm_iconbitmap('favicon.ico')
     Label(billingsto,text='-'*48+'Billing'+'-'*49).grid(row=0,column=0,columnspan=7,sticky='W')
     Label(billingsto,text='Enter Name: ').grid(row=1,column=0)
     name1=Entry(billingsto)
@@ -207,6 +208,7 @@ def dailyincome():
     billtable=('cname','cadd','items','total','date','billno','bill')
     flag='dailyinco'
     dailyinco=Tk()
+    dailyinco.wm_iconbitmap('favicon.ico')
     total=0.0
     today=str(time.localtime()[2])+'/'+str(time.localtime()[1])+'/'+str(time.localtime()[0])
     Label(dailyinco,text='Today: '+today).grid(row=0,column=0)

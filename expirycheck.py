@@ -23,6 +23,7 @@ def expiry():
     c.commit()
     expirychk=Tk()
     expirychk.title('Check Expiry of the Items')
+    expirychk.wm_iconbitmap('favicon.ico')
     Label(expirychk,text='Today: '+today).grid(row=0,column=0,columnspan=3)
     Label(expirychk,text='Its Illegal to sell expired items').grid(row=1, column=0,columnspan=3)
     Label(expirychk,text='-'*80).grid(row=2, column=0,columnspan=3)
