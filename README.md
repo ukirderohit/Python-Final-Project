@@ -57,7 +57,7 @@ Open an issue first to discuss potential changes/additions. If you have question
 
 ## License
 
- Use this guide. Attributions are appreciated._
+ Use this guide. Attributions are appreciated.
 
 ### Copyright
 
